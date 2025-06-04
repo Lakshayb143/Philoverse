@@ -49,7 +49,9 @@ class Settings(BaseSettings):
     
     RAG_DEVICE :str = "cpu"
     RAG_CHUNK_SIZE :int = 256
-
+    RAG_TEXT_EMBEDDING_MODEL_ID :str = "sentence-transformers/all-MiniLM-L6-v2"
+    RAG_TOP_K :int = 5
+    RAG_TEXT_EMBEDDING_MODEL_DIMENSIONS :int = 384
 
 
 
