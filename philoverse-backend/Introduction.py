@@ -88,3 +88,10 @@
 
 # asyncio.run(main())
     
+
+
+# messages = ['m1', 'm2', 'm3', 'm4', 'm5']
+# TOTAL_MESSAGES_AFTER_SUMMARY = 2
+
+# # This returns ['m1', 'm2', 'm3']
+# print(messages[-TOTAL_MESSAGES_AFTER_SUMMARY : : -1])

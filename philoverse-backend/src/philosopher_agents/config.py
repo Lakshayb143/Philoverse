@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     """MONGODB Configuration"""
     MONGO_URI :str = Field(
-        default = "",
+        default = "mongodb+srv://lakshaybhatia46:8368487055lb@lb.piudsf0.mongodb.net/?retryWrites=true&w=majority&appName=lb",
         description="Connection URI with MongoDB Atlas"
 
     )
@@ -34,6 +34,11 @@ class Settings(BaseSettings):
     COMET_API_KEY : str| None = Field(
         default=None,
         description="API key for Comet ML and Opik services."
+    )
+    COMET_PROJECT : str= Field(
+        default="philoverse",
+        description="Project name for Comet ML and Opik tracking.",
+
     )
 
 

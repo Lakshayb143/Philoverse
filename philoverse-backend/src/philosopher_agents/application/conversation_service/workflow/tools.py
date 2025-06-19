@@ -1,12 +1,12 @@
 from langchain.tools.retriever import create_retriever_tool
 
-from config import settings
-from application.rag.retrivers import get_retriver
+from philosopher_agents.config import settings
+from philosopher_agents.application.rag.retrievers import get_retriever
 
-retriver = get_retriver(
+retriver = get_retriever(
     embedding_model_id = settings.RAG_TEXT_EMBEDDING_MODEL_ID,
     k = settings.RAG_TOP_K,
-    device = settings.RAG_DEVICE;
+    device = settings.RAG_DEVICE,
 )
 
 retriver_tool = create_retriever_tool(

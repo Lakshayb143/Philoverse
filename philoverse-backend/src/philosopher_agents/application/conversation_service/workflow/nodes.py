@@ -3,11 +3,19 @@ from langchain_core.runnables import RunnableConfig
 from langgraph.prebuilt import ToolNode
 
 
-from state import PhilosopherState
+from philosopher_agents.application.conversation_service.workflow.chains import(
+    get_philosopher_response_chain,
+    get_conversation_summary_chain,
+    get_context_summary_chain,
+)
 
-from config import settings
+
+from philosopher_agents.application.conversation_service.workflow.state import PhilosopherState
+from philosopher_agents.application.conversation_service.workflow.tools import tools
+from philosopher_agents.config import settings
 
 
+retriver_node = ToolNode(tools)
 
 
 async def conversation_node(state :PhilosopherState, config: RunnableConfig):
@@ -32,7 +40,23 @@ async def conversation_node(state :PhilosopherState, config: RunnableConfig):
 
 async def summarize_conversation_node(state :PhilosopherState):
     summary = state.get("summary","")
-    summary_chain = 
+    summary_chain = get_conversation_summary_chain(summary)
+
+    response = await summary_chain.ainvoke(
+        {
+            "messages" : state["messages"],
+            "philosopher_name" : state["philosopher_name"],
+            "summary" : summary
+        }
+
+    )
+
+    delete_messages = [
+        RemoveMessage(id=m.id)
+        for m in state["messages"][: -settings.TOTAL_MESSAGES__AFTER_SUMMARY]
+    ]
+
+    return {"summary" : response.content , "messages" : delete_messages}
 
 
 async def summarize_context_node(state :PhilosopherState):
